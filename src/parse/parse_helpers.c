@@ -6,15 +6,15 @@
 /*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:38:53 by moaregra          #+#    #+#             */
-/*   Updated: 2025/01/22 13:24:23 by moaregra         ###   ########.fr       */
+/*   Updated: 2025/01/22 21:07:44 by moaregra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cube3d.h"
 
-size_t	ft_strlenewline(char *s)
+size_t ft_strlenewline(char *s)
 {
-	size_t	i;
+	size_t i;
 
 	i = 0;
 	while (s[i] && s[i] != '\n')
@@ -22,12 +22,27 @@ size_t	ft_strlenewline(char *s)
 	return (i);
 }
 
-static char	*get_file_in_char(char *av)
+int check_virgul(char *av)
 {
-	char		*line;
-	int			fd;
-	static char	*map = NULL;
-	char		*temp;
+	int i = 0;
+	int count = 0;
+	while (av[i])
+	{
+		if (av[i] == ',')
+			count++;
+		i++;
+	}
+	if (count == 2)
+		return 0;
+	return 1;
+}
+
+static char *get_file_in_char(char *av)
+{
+	char *line;
+	int fd;
+	static char *map = NULL;
+	char *temp;
 
 	fd = open(av, O_RDONLY);
 	if (fd == -1)
@@ -51,13 +66,13 @@ static char	*get_file_in_char(char *av)
 	return (map);
 }
 
-char	**split_file(char *s)
+char **split_file(char *s)
 {
-	char	**all_line;
-	char	**clean_line;
-	int		i;
-	int		j;
-	int		count;
+	char **all_line;
+	char **clean_line;
+	int i;
+	int j;
+	int count;
 
 	if (!s)
 		return (NULL);
@@ -104,13 +119,13 @@ char	**split_file(char *s)
 	free(all_line);
 	return (clean_line);
 }
-char	*parse_line(char *s, char *to_trim)
+char *parse_line(char *s, char *to_trim)
 {
-	char	*new;
-	char	*result;
-	int		len;
-	int		i;
-	int		j;
+	char *new;
+	char *result;
+	int len;
+	int i;
+	int j;
 
 	new = ft_strtrim(s, to_trim);
 	i = 0;
@@ -138,25 +153,26 @@ char	*parse_line(char *s, char *to_trim)
 	free(new);
 	return (result);
 }
-void	fill_struct(t_map *map,char *av)
+
+void fill_struct(t_map *map, char *av)
 {
-	char	*s;
-	char	**file;
-	char	*tmp;
-	int		i;
+	char *s;
+	char **file;
+	char *tmp;
+	int i;
 
 	s = get_file_in_char(av);
 	file = split_file(s);
 	i = 0;
 	if (!s || !file || !map)
-		return ;
-	while(file[i])
+		return;
+	while (file[i])
 	{
 		if (ft_strnstr(file[i], "NO ", ft_strlen(file[i])))
 		{
 			tmp = ft_strdup(file[i]);
 			if (!tmp)
-				return ;
+				return;
 			map->no = parse_line(tmp, "NO ");
 			free(tmp);
 		}
@@ -164,7 +180,7 @@ void	fill_struct(t_map *map,char *av)
 		{
 			tmp = ft_strdup(file[i]);
 			if (!tmp)
-				return ;
+				return;
 			map->se = parse_line(tmp, "SO ");
 			free(tmp);
 		}
@@ -172,7 +188,7 @@ void	fill_struct(t_map *map,char *av)
 		{
 			tmp = ft_strdup(file[i]);
 			if (!tmp)
-				return ;
+				return;
 			map->ea = parse_line(tmp, "EA ");
 			free(tmp);
 		}
@@ -180,14 +196,90 @@ void	fill_struct(t_map *map,char *av)
 		{
 			tmp = ft_strdup(file[i]);
 			if (!tmp)
-				return ;
+				return;
 			map->we = parse_line(tmp, "WE ");
+			free(tmp);
+		}
+		if (ft_strnstr(file[i], "F ", ft_strlen(file[i])))
+		{
+			tmp = ft_strdup(file[i]);
+			if (!tmp)
+				return;
+			map->floor_color = parse_line(tmp, "F ");
+			free(tmp);
+		}
+		if (ft_strnstr(file[i], "C ", ft_strlen(file[i])))
+		{
+			tmp = ft_strdup(file[i]);
+			if (!tmp)
+				return;
+			map->celling_color = parse_line(tmp, "C ");
 			free(tmp);
 		}
 		i++;
 	}
 }
 
+
+char *convert_hex(int nb)
+{
+	char hex_digits[] = "0123456789ABCDEF";
+	char hex_result[100]; // Buffer to store result
+	int i = 0;
+
+	if (nb == 0)
+	{
+		hex_result[0] = '0';
+		hex_result[1] = '\0';
+		return;
+	}
+	int is_negative = 0;
+	if (nb < 0)
+	{
+		is_negative = 1;
+		nb = -nb; // Make positive for conversion
+	}
+	while (nb != 0)
+	{
+		hex_result[i] = hex_digits[nb % 16];
+		nb = nb / 16;
+		i++;
+	}
+
+	if (is_negative)
+		hex_result[i++] = '-';
+	hex_result[i] = '\0';
+	int start = 0;
+	int end = i - 1;
+	while (start < end)
+	{
+		char temp = hex_result[start];
+		hex_result[start] = hex_result[end];
+
+		hex_result[end] = temp;
+		start++;
+		end--;
+	}
+	return(hex_result);
+}
+
+void fill_rgb(t_map *map)
+{
+	char **floor_rgb;
+	char **celling_rgb;
+	if (check_virgul(map->celling_color) == 0 && check_virgul(map->floor_color) == 0)
+	{
+		floor_rgb = ft_split(map->floor_color, ",");
+		celling_rgb = ft_split(map->celling_color, ",");
+		map->f_rgb.r = ft_atoi(floor_rgb[0]);
+		map->f_rgb.g = ft_atoi(floor_rgb[1]);
+		map->f_rgb.b = ft_atoi(floor_rgb[2]);
+		map->c_rgb.r = ft_atoi(celling_rgb[0]);
+		map->c_rgb.g = ft_atoi(celling_rgb[1]);
+		map->c_rgb.b = ft_atoi(celling_rgb[2]);
+	}
+	return;
+}
 // int	main(void)
 // {
 // 	t_map map;

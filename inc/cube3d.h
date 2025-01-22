@@ -6,7 +6,7 @@
 /*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/01/22 13:34:59 by moaregra         ###   ########.fr       */
+/*   Updated: 2025/01/22 21:06:22 by moaregra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,14 @@ typedef struct s_cube
 //----INITIALIZATION-==---------------//
 //------------------=--==-------------//
 //----PARSING------------==-----------//
+typedef struct s_rgb
+{
+	int r;
+	int g;
+	int b;
+	char *rgb_in_hex;
+} t_rgb;
+
 typedef struct s_map
 {
 	char **map;
@@ -107,11 +115,14 @@ typedef struct s_map
 	int map_width;
 	int x;
 	int y;
+	t_rgb f_rgb;
+	t_rgb c_rgb;
 } t_map;
+
 char **split_file(char *s);
 int check_file_name(char *s);
 void fill_struct(t_map *map, char *av);
-int check_texture(t_map map);
+int check_texture(t_map *map);
 //-------------------------===--------//
 
 //--------------------------------------//

@@ -6,7 +6,7 @@
 /*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:38:48 by moaregra          #+#    #+#             */
-/*   Updated: 2025/01/22 13:30:28 by moaregra         ###   ########.fr       */
+/*   Updated: 2025/01/22 20:52:11 by moaregra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,15 @@ int	main(int ac, char **av)
 	printf("%s\n", map.se);
 	printf("%s\n", map.ea);
 	printf("%s\n", map.we);
+	printf("%s\n", map.celling_color);
+	printf("%s\n", map.floor_color);
+
 	/*
 		check floor and celling texture
 		every number should be in range of 0 to 255(both included)
 		*/
 
-	if (check_texture(map) == 0)
+	if (check_texture(&map) == 0)
 		return ((write(2, "invalid floor or celling texture\n", 34)), 1);
 	/*
 		check if the map is valid no hole in the map and the player
