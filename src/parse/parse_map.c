@@ -6,7 +6,7 @@
 /*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 13:42:06 by moaregra          #+#    #+#             */
-/*   Updated: 2025/01/23 20:42:51 by moaregra         ###   ########.fr       */
+/*   Updated: 2025/01/23 21:16:46 by moaregra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	check_line(t_map *map)
 	int i = 0;
 	while (map->map[i])
 	{
-		if (map->map[i][0] != '1' && map->map[i][ft_strlen(map->map[i])] != '1')
+		if (map->map[i][0] != '1' || map->map[i][ft_strlen(map->map[i]) - 1] != '1')
 			return (1);
 		i++;
 	}
