@@ -6,11 +6,21 @@
 /*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:38:48 by moaregra          #+#    #+#             */
-/*   Updated: 2025/01/22 20:52:11 by moaregra         ###   ########.fr       */
+/*   Updated: 2025/01/23 14:22:35 by moaregra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cube3d.h"
+
+void	print_2d(char **s)
+{
+	int i = 0;
+	while(s[i])
+	{
+		printf("%s\n",s[i]);
+		i++;
+	}
+}
 
 int	main(int ac, char **av)
 {
@@ -28,20 +38,22 @@ int	main(int ac, char **av)
 	if (check_file_name(av[1]) == 0)
 		return ((write(2, "file invalid\n", 14)), 1);
 
-	fill_struct(&map, av[1]); // Note: passing address of map
-
+	initiliase_struct(&map,av[1]);
 	printf("%s\n", map.no);
 	printf("%s\n", map.se);
 	printf("%s\n", map.ea);
 	printf("%s\n", map.we);
-	printf("%s\n", map.celling_color);
-	printf("%s\n", map.floor_color);
+	printf("%d\n",map.c_rgb.r);
+	printf("%d\n",map.c_rgb.g);
+
+	printf("%d\n",map.c_rgb.b);
 
 	/*
 		check floor and celling texture
 		every number should be in range of 0 to 255(both included)
 		*/
-
+	get_map_into2darray(&map,av[1]);
+	print_2d(map.map);
 	if (check_texture(&map) == 0)
 		return ((write(2, "invalid floor or celling texture\n", 34)), 1);
 	/*

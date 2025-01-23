@@ -6,7 +6,7 @@
 /*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:38:53 by moaregra          #+#    #+#             */
-/*   Updated: 2025/01/22 21:07:44 by moaregra         ###   ########.fr       */
+/*   Updated: 2025/01/23 14:12:50 by moaregra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int check_virgul(char *av)
 	return 1;
 }
 
-static char *get_file_in_char(char *av)
+char *get_file_in_char(char *av)
 {
 	char *line;
 	int fd;
@@ -154,6 +154,22 @@ char *parse_line(char *s, char *to_trim)
 	return (result);
 }
 
+void fill_rgb(t_map *map)
+{
+	char **floor_rgb;
+	char **celling_rgb;
+	if (check_virgul(map->celling_color) == 0 && check_virgul(map->floor_color) == 0)
+	{
+		floor_rgb = ft_split(map->floor_color, ',');
+		celling_rgb = ft_split(map->celling_color, ',');
+		map->f_rgb.r = ft_atoi(floor_rgb[0]);
+		map->f_rgb.g = ft_atoi(floor_rgb[1]);
+		map->f_rgb.b = ft_atoi(floor_rgb[2]);
+		map->c_rgb.r = ft_atoi(celling_rgb[0]);
+		map->c_rgb.g = ft_atoi(celling_rgb[1]);
+		map->c_rgb.b = ft_atoi(celling_rgb[2]);
+	}
+}
 void fill_struct(t_map *map, char *av)
 {
 	char *s;
@@ -219,66 +235,11 @@ void fill_struct(t_map *map, char *av)
 		i++;
 	}
 }
-
-
-char *convert_hex(int nb)
+void	initiliase_struct(t_map *map,char *av)
 {
-	char hex_digits[] = "0123456789ABCDEF";
-	char hex_result[100]; // Buffer to store result
-	int i = 0;
-
-	if (nb == 0)
-	{
-		hex_result[0] = '0';
-		hex_result[1] = '\0';
-		return;
-	}
-	int is_negative = 0;
-	if (nb < 0)
-	{
-		is_negative = 1;
-		nb = -nb; // Make positive for conversion
-	}
-	while (nb != 0)
-	{
-		hex_result[i] = hex_digits[nb % 16];
-		nb = nb / 16;
-		i++;
-	}
-
-	if (is_negative)
-		hex_result[i++] = '-';
-	hex_result[i] = '\0';
-	int start = 0;
-	int end = i - 1;
-	while (start < end)
-	{
-		char temp = hex_result[start];
-		hex_result[start] = hex_result[end];
-
-		hex_result[end] = temp;
-		start++;
-		end--;
-	}
-	return(hex_result);
-}
-
-void fill_rgb(t_map *map)
-{
-	char **floor_rgb;
-	char **celling_rgb;
-	if (check_virgul(map->celling_color) == 0 && check_virgul(map->floor_color) == 0)
-	{
-		floor_rgb = ft_split(map->floor_color, ",");
-		celling_rgb = ft_split(map->celling_color, ",");
-		map->f_rgb.r = ft_atoi(floor_rgb[0]);
-		map->f_rgb.g = ft_atoi(floor_rgb[1]);
-		map->f_rgb.b = ft_atoi(floor_rgb[2]);
-		map->c_rgb.r = ft_atoi(celling_rgb[0]);
-		map->c_rgb.g = ft_atoi(celling_rgb[1]);
-		map->c_rgb.b = ft_atoi(celling_rgb[2]);
-	}
-	return;
+	fill_struct(map,av);
+	fill_rgb(map);
+	
 }
 // int	main(void)
 // {

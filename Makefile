@@ -1,6 +1,6 @@
 CC = cc
 FLAGS = -Wall -Wextra -Werror -Imlx -c -g
-SRCS = src/ray-casting/main.c src/ray-casting/raycaster.c src/ray-casting/mlx_init.c src/ray-casting/utils.c src/parse/main2.c src/parse/parse_helpers.c src/parse/parse.c
+SRCS = src/ray-casting/main.c src/ray-casting/raycaster.c src/ray-casting/mlx_init.c src/ray-casting/utils.c src/parse/main2.c src/parse/parse_helpers.c src/parse/parse.c src/parse/parse_map.c
 LIB = libft/libft.a
 NAME = cub3D
 OBJ = $(SRCS:.c=.o)
