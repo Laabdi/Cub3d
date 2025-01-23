@@ -6,7 +6,7 @@
 /*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:38:53 by moaregra          #+#    #+#             */
-/*   Updated: 2025/01/23 14:12:50 by moaregra         ###   ########.fr       */
+/*   Updated: 2025/01/23 20:35:02 by moaregra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,7 +239,6 @@ void	initiliase_struct(t_map *map,char *av)
 {
 	fill_struct(map,av);
 	fill_rgb(map);
-	
 }
 // int	main(void)
 // {
