@@ -6,7 +6,7 @@
 /*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:41 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/01/23 20:35:07 by moaregra         ###   ########.fr       */
+/*   Updated: 2025/01/26 16:48:47 by moaregra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ typedef struct s_map
 	t_rgb					c_rgb;
 }							t_map;
 
+int							check_map(t_map *map);
 void						print_2d(char **s);
 int							check_line(t_map *map);
 char						**split_file(char *s);

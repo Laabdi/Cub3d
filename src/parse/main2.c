@@ -6,7 +6,7 @@
 /*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:38:48 by moaregra          #+#    #+#             */
-/*   Updated: 2025/01/23 21:15:20 by moaregra         ###   ########.fr       */
+/*   Updated: 2025/01/26 18:31:37 by moaregra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,19 +56,18 @@ int	main(int ac, char **av)
 		*/
 	get_map_into2darray(&map, av[1]);
 	print_2d(map.map);
-	// if (check_texture(&map) == 1)
-	// 	return ((write(2, "invalid floor or celling texture\n", 34)), 1);
-	if (check_line(&map) == 0)
-		return ((write(2, "valid borders\n", 15)), 1);
-	return ((write(2, "non valid borders\n", 19)), 1);
-
 	/*
 		check if the map is valid no hole in the map and the player
 		that means the players exists and the map is fully surronded
 		by walls
 		*/
-	// if (check_map(map) == 0)
-	//     return ((write(2, "invalid map\n", 13)), 1);
+	if (check_map(&map) == 0)
+		return ((write(2, "invalid map\n", 13)), 1);
+	else
+		return ((write(2, "valid map\n", 11)), 1);
+
+	// if (check_texture(&map) == 1)
+	// 	return ((write(2, "invalid floor or celling texture\n", 34)), 1);
 
 	return (0);
 }

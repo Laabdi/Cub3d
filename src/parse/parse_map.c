@@ -6,25 +6,23 @@
 /*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 13:42:06 by moaregra          #+#    #+#             */
-/*   Updated: 2025/01/23 21:16:46 by moaregra         ###   ########.fr       */
+/*   Updated: 2025/01/26 18:33:55 by moaregra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cube3d.h"
 
-int	check_map_line(char *s)
+int check_map_line(char *s)
 {
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] != '1' && s[i] != '0' && s[i] != 'N' && s[i] != 'S'
-			&& s[i] != 'E' && s[i] != 'W' && s[i] != '\t' && s[i] != ' ')
-			return (1);
-		i++;
-	}
-	return (0);
+    int i = 0;
+    while (s[i] != '\0')
+    {
+        if (s[i] != '1' && s[i] != '0' && s[i] != 'N' && s[i] != 'S'
+            && s[i] != 'E' && s[i] != 'W' && s[i] != '\t' && s[i] != ' ')
+            return (1);
+        i++;
+    }
+    return (0);
 }
 void	get_map_into2darray(t_map *map, char *av)
 {
@@ -76,15 +74,97 @@ void	get_map_into2darray(t_map *map, char *av)
 	}
 	free(all_file);
 }
-
-int	check_line(t_map *map)
+int	count_double_char(char **s)
 {
-	int i = 0;
-	while (map->map[i])
+	int	i;
+
+	i = 0;
+	while (s[i])
 	{
-		if (map->map[i][0] != '1' || map->map[i][ft_strlen(map->map[i]) - 1] != '1')
+		i++;
+	}
+	return (i - 1);
+}
+int	check_borders(char *s)
+{
+	int	i;
+
+	i = 0;
+	int last_index = ft_strlen(s) - 1;
+	while (s[i])
+	{
+		if (s[0] != '1' || s[last_index] != '1')
 			return (1);
 		i++;
 	}
 	return (0);
+}
+int	check_top_and_bottom(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] != '1')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+int check_map(t_map *map)
+{
+    int players = 0;
+    int size = count_double_char(map->map);
+    int i = 0;
+    int j;
+
+    // Check top and bottom rows are all walls
+    if (check_top_and_bottom(map->map[0]) == 1 || 
+        check_top_and_bottom(map->map[size]) == 1)
+        return (0);
+
+    // Comprehensive map validation
+    while (map->map[i])
+    {
+        // Check borders of each line
+        if (check_borders(map->map[i]) == 1)
+            return (0);
+
+        // Count player start positions and validate surrounding walls
+        j = 0;
+        while (map->map[i][j])
+        {
+            char c = map->map[i][j];
+            
+            // Count player start positions
+            if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
+            {
+                players++;
+                
+                // Validate player is surrounded by walls
+                if (i == 0 || i == size || j == 0 || 
+                    map->map[i-1][j] == ' ' || map->map[i+1][j] == ' ' ||
+                    map->map[i][j-1] == ' ' || map->map[i][j+1] == ' ')
+                    return (0);
+            }
+            
+            // Check open spaces are surrounded by walls
+            if (c == '0')
+            {
+                if (i == 0 || i == size || j == 0 || 
+                    map->map[i-1][j] == ' ' || map->map[i+1][j] == ' ' ||
+                    map->map[i][j-1] == ' ' || map->map[i][j+1] == ' ')
+                    return (0);
+            }
+            j++;
+        }
+        i++;
+    }
+
+    // Ensure exactly one player start position
+    if (players != 1)
+        return (0);
+
+    return (1);
 }
