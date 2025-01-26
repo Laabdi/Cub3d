@@ -6,7 +6,7 @@
 /*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 13:42:06 by moaregra          #+#    #+#             */
-/*   Updated: 2025/01/26 18:33:55 by moaregra         ###   ########.fr       */
+/*   Updated: 2025/01/26 19:02:41 by moaregra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	check_top_and_bottom(char *s)
 	i = 0;
 	while (s[i])
 	{
-		if (s[i] != '1')
+		if (s[i] != '1' || s[i] !=)
 			return (1);
 		i++;
 	}
