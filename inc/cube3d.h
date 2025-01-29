@@ -119,6 +119,9 @@ typedef struct s_map
 	t_rgb					c_rgb;
 }							t_map;
 
+int count_till_newline(char *s);
+int get_bigger_mapline(char **s);
+int get_line_of_biggervalue(char **s);
 int							check_map(t_map *map);
 void						print_2d(char **s);
 int							check_line(t_map *map);
