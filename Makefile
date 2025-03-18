@@ -1,6 +1,6 @@
 CC = cc
 FLAGS = -Wall -Wextra -Werror -fsanitize=address
-SRCS = src/parse/main2.c src/parse/parse_helpers.c src/parse/parse_helpers2.c src/parse/parse_helpers3.c src/parse/parse_map.c src/parse/parse_mapv2.c src/parse/parse_mapv3.c  src/parse/parse.c
+SRCS = src/parse/main2.c src/parse/parse_outils.c src/parse/parse_helpers.c src/parse/parse_helpers2.c src/parse/parse_helpers3.c src/parse/parse_map.c src/parse/parse_mapv2.c src/parse/parse_mapv3.c  src/parse/parse.c
 LIB = libft/libft.a
 NAME = cub3D
 OBJ = $(SRCS:.c=.o)
