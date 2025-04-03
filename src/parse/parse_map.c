@@ -6,7 +6,7 @@
 /*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 13:42:06 by moaregra          #+#    #+#             */
-/*   Updated: 2025/03/18 15:42:10 by moaregra         ###   ########.fr       */
+/*   Updated: 2025/04/02 06:58:26 by moaregra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,12 @@ void	fill_map_array(t_map *map, char **all_file, int lines)
 	}
 	map->map[j] = NULL;
 }
-
+int	empty_map(t_map *map)
+{
+	if(map->map[0] == NULL)
+	return 1;
+	return 0;
+}
 void	get_map_into2darray(t_map *map, char *av)
 {
 	int		lines;

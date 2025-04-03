@@ -6,7 +6,7 @@
 /*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:38:48 by moaregra          #+#    #+#             */
-/*   Updated: 2025/03/19 16:01:49 by moaregra         ###   ########.fr       */
+/*   Updated: 2025/04/02 07:03:38 by moaregra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,11 @@ int	main(int ac, char **av)
 		return (handle_errors(1));
 	if (check_file_name(av[1]) == 0)
 		return (handle_errors(2));
+	// printf("working till here\n");
 	initiliase_struct(&map, av[1]);
 	get_map_into2darray(&map, av[1]);
+	if(empty_map(&map) == 1)
+	exit(1);
 	count_w_h(&map);
 	check_direction(&map);
 	printf("width :%d, height :%d, X position: %d,Y position %d\n , angle : %.2f \n", map.map_width , map.map_height,map.x,map.y,map.start_angle);
@@ -88,7 +91,7 @@ int	main(int ac, char **av)
 	}
 	else
 		write(1, "valid rgbs\n", 12);
-	if (check_map(&map) == 0)
+	if (check_map(&map) == 0) // segftl in check map
 	{
 		free_map_struct(&map);
 		return (handle_errors(4));
