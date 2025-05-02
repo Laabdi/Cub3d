@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   health_bar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/02 18:52:56 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/09 16:32:43 by iouhssei         ###   ########.fr       */
+/*   Created: 2025/02/14 18:55:47 by iouhssei          #+#    #+#             */
+/*   Updated: 2025/02/14 19:45:27 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "../../inc/cube3d.h"
 
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
+// int init_texture_health_bar(t_cube *cube)
+// {
 
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
+    
+
+
+
+//    return (0); 
+// }
+
+
+
+// void	draw_health_bar(t_cube *cube)
+// {
+
+    
+// }

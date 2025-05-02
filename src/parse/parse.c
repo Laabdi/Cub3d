@@ -6,7 +6,7 @@
 /*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 12:38:50 by moaregra          #+#    #+#             */
-/*   Updated: 2025/03/17 15:37:57 by moaregra         ###   ########.fr       */
+/*   Updated: 2025/04/17 16:40:31 by moaregra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,35 @@
 
 int	check_file_name(char *s)
 {
-	if (access(s, F_OK) == -1)
+	int	fd;
+
+	fd = open(s, O_RDONLY);
+	if (fd == -1)
 		return (0);
+	close(fd);
 	return (1);
 }
 
 int	check_texture(t_map *map)
 {
-	if (access(map->no, F_OK) == -1)
+	int	fd;
+
+	fd = open(map->no, O_RDONLY);
+	if (fd == -1)
 		return (0);
-	if (access(map->ea, F_OK) == -1)
+	close(fd);
+	fd = open(map->ea, O_RDONLY);
+	if (fd == -1)
 		return (0);
-	if (access(map->se, F_OK) == -1)
+	close(fd);
+	fd = open(map->se, O_RDONLY);
+	if (fd == -1)
 		return (0);
-	if (access(map->we, F_OK) == -1)
+	close(fd);
+	fd = open(map->we, O_RDONLY);
+	if (fd == -1)
 		return (0);
+	close(fd);
 	return (1);
 }
 
@@ -49,6 +63,8 @@ int	check_virgul(char *av)
 
 	i = 0;
 	count = 0;
+	if (!av)
+		return (0);
 	while (av[i])
 	{
 		if (av[i] == ',')
@@ -64,27 +80,50 @@ char	*get_file_in_char(char *av)
 {
 	char	*line;
 	int		fd;
-	char	*map;
-	char	*temp;
+	char	*temp_join;
+	char	*map_content;
 
-	map = NULL;
+	map_content = NULL;
 	fd = open(av, O_RDONLY);
 	if (fd == -1)
 	{
-		printf("Error opening file\n");
-		exit(1);
+		perror("Error opening file");
+		return (NULL);
 	}
-	while ((line = get_next_line(fd)) != NULL)
+	line = get_next_line(fd);
+	while (line != NULL)
 	{
-		if (map == NULL)
-			map = ft_strdup(line);
+		if (map_content == NULL)
+		{
+			map_content = ft_strdup(line);
+			if (!map_content)
+			{
+				free(line);
+				close(fd);
+				return (NULL);
+			}
+		}
 		else
 		{
-			temp = ft_strjoin(map, line);
-			map = temp;
+			temp_join = ft_strjoin(map_content, line);
+			if (!temp_join)
+			{
+				free(line);
+				close(fd);
+				return (NULL);
+			}
+			map_content = temp_join;
 		}
 		free(line);
+		line = get_next_line(fd);
 	}
 	close(fd);
-	return (map);
+	if (map_content == NULL)
+		map_content = ft_strdup("");
+	if (!map_content)
+	{
+		close(fd);
+		return (NULL);
+	}
+	return (map_content);
 }

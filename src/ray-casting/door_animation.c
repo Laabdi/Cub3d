@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   door_animation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iouhssei <iouhssei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/02 18:52:56 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/04/09 16:32:43 by iouhssei         ###   ########.fr       */
+/*   Created: 2025/02/24 15:44:55 by iouhssei          #+#    #+#             */
+/*   Updated: 2025/03/09 21:23:14 by iouhssei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "../../inc/cube3d.h"
 
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
 
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
+
+// void draw_door(t_cube *cube)
+// {
+
+
+    
+// }
+
