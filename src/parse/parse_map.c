@@ -6,7 +6,7 @@
 /*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 13:42:06 by moaregra          #+#    #+#             */
-/*   Updated: 2025/05/03 00:19:24 by moaregra         ###   ########.fr       */
+/*   Updated: 2025/05/06 11:00:20 by moaregra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,15 +91,16 @@ void	get_map_into2darray(t_map *map, char *av)
 	fill_map_array(map, all_file, lines);
 	if(check_map_last(map,all_file) == 0)
 	{
-	free_map_struct(map);
-	while (all_file[i])
-		{
-			free(all_file[i]);
-			i++;
-		}
-		free(all_file);
-		free(s);
-		exit(1);
+		// printf("alo \n"); segfault instantly after this
+		free_map_struct(map);
+			while (all_file[i])
+				{
+					free(all_file[i]);
+					i++;
+				}
+			free(all_file);
+			free(s);
+			exit(1);
 	}
 	while (all_file[i])
 	{
@@ -113,7 +114,9 @@ int	check_map_last(t_map *map, char **all_file)
 {
     int		i;
     int		found_last_map_line;
-
+	
+	if(map->map[0] == NULL)
+		return 0;
     char	*last_map_line = map->map[count_double_char(map->map)];
 
     found_last_map_line = 0;
@@ -121,7 +124,9 @@ int	check_map_last(t_map *map, char **all_file)
     while (all_file[i])
     {
         if (strcmp(all_file[i], last_map_line) == 0)
-            found_last_map_line = 1;
+		{
+            found_last_map_line = 1;	
+		}
         else if (found_last_map_line && all_file[i][0] != '\0')
         {
             write(2, "Error: Content found after map\n", 31);
@@ -129,7 +134,6 @@ int	check_map_last(t_map *map, char **all_file)
         }
         i++;
     }
-
     if (!found_last_map_line)
     {
         write(2, "Error: Last map line not found in file\n", 39);
