@@ -66,8 +66,10 @@ void	fill_struct(t_map *map, char *av)
 				free(file[i]);
 				i++;
 			}
-		printf("double arguments \n");
-		exit(1);
+			free(file);
+			free(s);
+			printf("double arguments \n");
+			exit(1);
 	}
 	fill_struct_helper(map, file);
 	i = 0;

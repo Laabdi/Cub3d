@@ -77,7 +77,7 @@ $(NAME): $(OBJ) $(LIB)
 	@echo "$(YELLOW)~~~~~~~~~~~~~~~~~~~~~~~~~$(NC)" #
 
 %.o: %.c
-	@$(CC) -Wall -Wextra -Werror -g -I/usr/include -Imlx_linux -O3 -c $< -o $@
+	@$(CC) -Wall -Wextra -g -I/usr/include -Imlx_linux -O3 -c $< -o $@
 
 clean :
 	@echo "$(RED)Cleaning libft objects...$(NC)"

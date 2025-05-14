@@ -110,6 +110,22 @@ void	get_map_into2darray(t_map *map, char *av)
 	free(all_file);
 	free(s);
 }
+int find_last_line_occurance(t_map *map,char **av)
+{
+	char	*last_map_line = map->map[count_double_char(map->map)];
+	int		i;
+	i = 0;
+	int biggest_index = 0;
+	while(av[i])
+	{
+		if (ft_strncmp(av[i], last_map_line,ft_strlen(av[i])) == 0)
+		{
+			biggest_index = i;
+		}
+		i++;
+	}
+	return biggest_index;
+}
 int	check_map_last(t_map *map, char **all_file)
 {
     int		i;
@@ -121,9 +137,10 @@ int	check_map_last(t_map *map, char **all_file)
 
     found_last_map_line = 0;
     i = 0;
+	int biggest_index = find_last_line_occurance(map,all_file);
     while (all_file[i])
     {
-        if (strcmp(all_file[i], last_map_line) == 0)
+        if (biggest_index == i)
 		{
             found_last_map_line = 1;	
 		}
