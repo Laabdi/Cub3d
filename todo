@@ -1,4 +1,15 @@
 check if there is only one thing per thingy like EA SO NO WE
 acces segfault if there a folder not a file i should check  before if its an actual file
 if no map segfault woohohoo
-z
+
+
+--> Failed tests
+check player position and spawn it in the same direction
+leaks in rgb checks (ie: F 220,10a0,22)
+invalid texture name (ie: WE ./textures/gnawa/zelijv1.xpms )
+spaces in texture names
+add this function ==> int	check _texture(t_map *map)
+empty line inside the map content
+switching colors with textures
+C ./textures/gnawa/zelijv2.xpm
+NO 225,30,1

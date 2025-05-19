@@ -6,7 +6,7 @@
 /*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 15:44:29 by iouhssei          #+#    #+#             */
-/*   Updated: 2025/05/06 10:54:54 by moaregra         ###   ########.fr       */
+/*   Updated: 2025/05/19 18:24:42 by moaregra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,9 @@ static int	parse_map(t_map *map, int ac, char **av)
 	check_direction(map);
 	if (check_rgbs(map) == 1)
 	{
+		printf("rgbs not valid\n");
 		free_map_struct(map);
+		free_map_textures(map);
 		return (handle_errors(3));
 	}
 	if (check_map(map) == 0)

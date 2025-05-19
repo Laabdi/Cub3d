@@ -6,7 +6,7 @@
 /*   By: moaregra <moaregra@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 15:38:42 by moaregra          #+#    #+#             */
-/*   Updated: 2025/05/02 23:41:02 by moaregra         ###   ########.fr       */
+/*   Updated: 2025/05/16 16:55:01 by moaregra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,11 @@ void	fill_struct(t_map *map, char *av)
 void	initiliase_struct(t_map *map, char *av)
 {
 	fill_struct(map, av);
+	if(check_texture(map) == 0)
+	{
+		free_map_struct(map);
+		printf("non valid texture\n");
+		exit(1);
+	}
 	fill_rgb(map);
 }
